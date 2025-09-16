@@ -11,8 +11,7 @@ import ContactUsPage from "./components/Contactus";
 import CareersPage from "./components/CareersPage";
 import Footer from "./components/Footer";
 import BlogPage from "./components/Blog";
-import ScrollToTop from "./components/ScrollToTop"; // ✅ Import this
-
+import ScrollToTop from "./components/ScrollToTop"; 
 import HireUsPage from "./components/HireUsPage";
 import ServiceDetailPage from "./components/ServiceDetailPage";
 import OurWorkPage from "./components/OurWorkPage";
