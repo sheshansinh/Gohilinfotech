@@ -10,7 +10,7 @@ import TechnologyPage from "./components/Technology";
 import ContactUsPage from "./components/Contactus";
 import CareersPage from "./components/CareersPage";
 import Footer from "./components/Footer";
-import BlogPage from "./components/blog";
+import BlogPage from "./components/Blog";
 import ScrollToTop from "./components/ScrollToTop"; // ✅ Import this
 
 import HireUsPage from "./components/HireUsPage";
