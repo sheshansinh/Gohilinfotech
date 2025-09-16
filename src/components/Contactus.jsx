@@ -3,6 +3,9 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { Mail, Phone, MapPin, X } from "lucide-react";
 import axios from "axios";
+// Import the new library
+import PhoneInput from 'react-phone-number-input';
+import 'react-phone-number-input/style.css'; // Don't forget to import the styles
 
 // Reusable animated container
 const AnimatedContainer = ({ children }) => {
@@ -67,10 +70,11 @@ const Toast = ({ message, type, onClose }) => {
 
 const ContactUsPage = () => {
   const [formData, setFormData] = useState({
-    name: "",
+    firstName: "", // Corrected name to firstName as used in validation
+    lastName: "",  // Corrected name to lastName as used in validation
     email: "",
     company: "",
-    phone: "",
+    phone: "", // This will be the full phone number with country code
     subject: "",
     howDidYouHear: "",
     message: "",
@@ -91,10 +95,13 @@ const ContactUsPage = () => {
   const handleChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
+  const handlePhoneChange = (value) => {
+      setFormData({ ...formData, phone: value });
+  };
+
   const validateForm = () => {
     const newErrors = {};
     if (!formData.firstName.trim()) newErrors.firstName = "First name is required.";
-    
     if (!formData.lastName.trim()) newErrors.lastName = "Last name is required.";
 
     if (!formData.email.trim()) {
@@ -102,16 +109,10 @@ const ContactUsPage = () => {
     } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
       newErrors.email = "Email is invalid.";
     }
-    if (!formData.company.trim())
-      newErrors.company = "Company name is required.";
 
-    // Updated phone number validation logic
-    const phoneRegex = /^[\d\s\-\(\)]+$/;
-    if (!formData.phone.trim()) {
+    // Updated phone number validation for the new component
+    if (!formData.phone) {
       newErrors.phone = "Phone number is required.";
-    } else if (!phoneRegex.test(formData.phone.trim())) {
-      newErrors.phone =
-        "Please enter a valid phone number (digits, spaces, hyphens, and parentheses are allowed).";
     }
 
     if (!formData.subject.trim()) newErrors.subject = "Subject is required.";
@@ -187,56 +188,52 @@ const ContactUsPage = () => {
                   </h3>
                   <form onSubmit={handleSubmit} className="space-y-6">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                      {/* Name */}
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        {/* First Name */}
-                        <div>
-                          <label className="block text-sm font-medium text-gray-700">
-                            First Name<span className="text-red-500">*</span>
-                          </label>
-                          <input
-                            type="text"
-                            name="firstName"
-                            value={formData.firstName}
-                            onChange={handleChange}
-                            placeholder="John"
-                            className={`w-full p-3 border rounded-lg ${
-                              errors.firstName
-                                ? "border-red-500"
-                                : "border-gray-300"
-                            }`}
-                          />
-                          {errors.firstName && (
-                            <p className="text-red-500 text-sm">
-                              {errors.firstName}
-                            </p>
-                          )}
-                        </div>
-                        {/* Last Name */}
-                        <div>
-                          <label className="block text-sm font-medium text-gray-700">
-                            Last Name<span className="text-red-500">*</span>
-                          </label>
-                          <input
-                            type="text"
-                            name="lastName"
-                            value={formData.lastName}
-                            onChange={handleChange}
-                            placeholder="Doe"
-                            className={`w-full p-3 border rounded-lg ${
-                              errors.lastName
-                                ? "border-red-500"
-                                : "border-gray-300"
-                            }`}
-                          />
-                          {errors.lastName && (
-                            <p className="text-red-500 text-sm">
-                              {errors.lastName}
-                            </p>
-                          )}
-                        </div>
+                      {/* First Name */}
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700">
+                          First Name<span className="text-red-500">*</span>
+                        </label>
+                        <input
+                          type="text"
+                          name="firstName"
+                          value={formData.firstName}
+                          onChange={handleChange}
+                          placeholder="John"
+                          className={`w-full p-3 border rounded-lg ${
+                            errors.firstName
+                              ? "border-red-500"
+                              : "border-gray-300"
+                          }`}
+                        />
+                        {errors.firstName && (
+                          <p className="text-red-500 text-sm">
+                            {errors.firstName}
+                          </p>
+                        )}
                       </div>
-
+                      {/* Last Name */}
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700">
+                          Last Name<span className="text-red-500">*</span>
+                        </label>
+                        <input
+                          type="text"
+                          name="lastName"
+                          value={formData.lastName}
+                          onChange={handleChange}
+                          placeholder="Doe"
+                          className={`w-full p-3 border rounded-lg ${
+                            errors.lastName
+                              ? "border-red-500"
+                              : "border-gray-300"
+                          }`}
+                        />
+                        {errors.lastName && (
+                          <p className="text-red-500 text-sm">
+                            {errors.lastName}
+                          </p>
+                        )}
+                      </div>
                       {/* Email */}
                       <div>
                         <label className="block text-sm font-medium text-gray-700">
@@ -259,12 +256,10 @@ const ContactUsPage = () => {
                           </p>
                         )}
                       </div>
-                    </div>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       {/* Company */}
                       <div>
                         <label className="block text-sm font-medium text-gray-700">
-                          Company<span className="text-red-500">*</span>
+                          Company
                         </label>
                         <input
                           type="text"
@@ -279,35 +274,30 @@ const ContactUsPage = () => {
                               : "border-gray-300"
                           }`}
                         />
-                        {errors.company && (
-                          <p className="text-red-500 text-sm mt-1">
-                            {errors.company}
-                          </p>
-                        )}
-                      </div>
-                      {/* Phone */}
-                      <div>
-                        <label className="block text-sm font-medium text-gray-700">
-                          Phone<span className="text-red-500">*</span>
-                        </label>
-                        <input
-                          type="tel"
-                          name="phone"
-                          id="phone"
-                          value={formData.phone}
-                          onChange={handleChange}
-                          placeholder="+91 9876543210"
-                          className={`w-full p-3 border rounded-lg transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 ${
-                            errors.phone ? "border-red-500" : "border-gray-300"
-                          }`}
-                        />
-                        {errors.phone && (
-                          <p className="text-red-500 text-sm mt-1">
-                            {errors.phone}
-                          </p>
-                        )}
                       </div>
                     </div>
+
+                    {/* Phone */}
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700">
+                        Phone<span className="text-red-500">*</span>
+                      </label>
+                      <PhoneInput
+                        international
+                        defaultCountry="IN" // Set India as the default country
+                        value={formData.phone}
+                        onChange={handlePhoneChange}
+                        className={`w-full p-3 border rounded-lg transition-colors duration-300 focus-within:outline-none focus-within:ring-2 focus-within:ring-blue-500 focus-within:border-blue-500 ${
+                          errors.phone ? "border-red-500" : "border-gray-300"
+                        }`}
+                      />
+                      {errors.phone && (
+                        <p className="text-red-500 text-sm mt-1">
+                          {errors.phone}
+                        </p>
+                      )}
+                    </div>
+
                     {/* Subject */}
                     <div>
                       <label className="block text-sm font-medium text-gray-700">
@@ -330,6 +320,7 @@ const ContactUsPage = () => {
                         </p>
                       )}
                     </div>
+
                     {/* How did you hear */}
                     <div>
                       <label className="block text-sm font-medium text-gray-700">
@@ -364,6 +355,7 @@ const ContactUsPage = () => {
                         </p>
                       )}
                     </div>
+
                     {/* Message */}
                     <div>
                       <label className="block text-sm font-medium text-gray-700">

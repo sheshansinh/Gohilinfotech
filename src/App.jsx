@@ -14,8 +14,8 @@ import BlogPage from "./components/blog";
 import ScrollToTop from "./components/ScrollToTop"; // ✅ Import this
 
 import HireUsPage from "./components/HireUsPage";
-import PortfolioPage from "./components/OurWorkPage";
 import ServiceDetailPage from "./components/ServiceDetailPage";
+import OurWorkPage from "./components/OurWorkPage";
 
 const App = () => {
   return (
@@ -33,7 +33,9 @@ const App = () => {
         <Route path="/services/service-detail/:id" element={<ServiceDetailPage />} />
 
         <Route path="/HireUsPage" element={<HireUsPage />} />
-        <Route path="/PortfolioPage" element={<PortfolioPage />} />
+        <Route path="/OurWorkPage" element={<OurWorkPage />} />
+        
+
       </Routes>
       <Footer showLatestJobs={true} />
     </BrowserRouter>

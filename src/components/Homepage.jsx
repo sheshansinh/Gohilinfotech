@@ -7,6 +7,7 @@ import ProjectInMindCTA from './ProjectInMindCTA';
 import PortfolioSection from './PortfolioSection';
 import ShuffleHero from './ShuffleHero';
 import AnimatedStats from './AnimatedStats';
+import ProductsShowcase from './ProductsShowcase';
 // --- Dependency-free Custom Hooks and Components ---
 
 // Simple animation hook to detect if an element is in view
@@ -641,7 +642,7 @@ const TechShowcase = () => {
       }`}
     >
       <div className="container mx-auto ">
-        <div className="text-center mb-12">
+        <div className="text-center mb-2">
           <h2 className="text-3xl md:text-4xl font-bold text-[#2C3E50] mb-4">
             Technologies We Use
           </h2>
@@ -654,7 +655,7 @@ const TechShowcase = () => {
         <div className="relative">
           <div
             ref={sliderRef}
-            className="flex gap-6 overflow-x-auto snap-x snap-mandatory scrollbar-hide px-4 md:px-0"
+            className="flex gap-6 overflow-x-auto snap-x snap-mandatory scrollbar-hide px-4 md:px-0 p-8"
             onMouseEnter={stopAutoSlide}
             onMouseLeave={startAutoSlide}
             onTouchStart={stopAutoSlide}
@@ -717,10 +718,10 @@ const TechShowcase = () => {
           </button>
         </div>
 
-        <div className="text-center mt-12">
+        <div className="text-center">
           <a
             href="/technologies"
-            className="mt-12 inline-flex items-center bg-[#73CCD7] text-white px-8 py-4 rounded-full font-semibold text-lg transition-all duration-300 hover:bg-[#27B0C4] hover:shadow-lg transform hover:scale-105"
+            className="mt-1 inline-flex items-center bg-[#73CCD7] text-white px-8 py-4 rounded-full font-semibold text-lg transition-all duration-300 hover:bg-[#27B0C4] hover:shadow-lg transform hover:scale-105"
           >
             Explore All Technologies
             <IconArrowRight />
@@ -974,20 +975,20 @@ const ServicesCardsSlider = () => {
   return (
     <section
       ref={ref}
-      className={`py-20 px-4 text-center transition-all duration-1000 ${
+      className={` bg-white py-20 px-4 text-center transition-all duration-1000 ${
         inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
       }`}
     >
       <div className="container mx-auto">
         <h2 className="text-3xl md:text-4xl font-bold text-[#2C3E50] mb-4">Our Services</h2>
-        <p className="text-[#7A7A7A] text-lg mb-12 max-w-2xl mx-auto">
+        <p className="text-[#7A7A7A] text-lg mb-6 max-w-2xl mx-auto">
           Comprehensive technology solutions designed to accelerate your
           business growth and digital transformation.
         </p>
         <div className="relative">
           <div
             ref={sliderRef}
-            className="flex gap-6 overflow-x-auto snap-x snap-mandatory scrollbar-hide px-4 md:px-0"
+            className="flex gap-6 overflow-x-auto snap-x snap-mandatory scrollbar-hide px-4 md:px-0 p-5"
             onMouseEnter={stopAutoSlide}
             onMouseLeave={startAutoSlide}
             onTouchStart={stopAutoSlide}
@@ -1038,7 +1039,7 @@ const ServicesCardsSlider = () => {
         </div>
         <a
           href="/services"
-          className="mt-12 inline-flex items-center bg-[#73CCD7] text-white px-8 py-4 rounded-full font-semibold text-lg transition-all duration-300 hover:bg-[#27B0C4] hover:shadow-lg transform hover:scale-105"
+          className="mt-6 inline-flex items-center bg-[#73CCD7] text-white px-8 py-4 rounded-full font-semibold text-lg transition-all duration-300 hover:bg-[#27B0C4] hover:shadow-lg transform hover:scale-105"
         >
           Explore All Services
           <IconArrowRight />
@@ -1289,6 +1290,10 @@ const HomePage = () => {
 
         <ServicesCardsSlider />
 
+        <AnimatedStats/>
+
+        <ProductsShowcase/>
+
         <section className="py-12 bg-white px-4">
           <div className="container mx-auto text-center">
             <p className="text-[#7A7A7A] text-sm uppercase tracking-wider font-semibold mb-4">
@@ -1308,8 +1313,6 @@ const HomePage = () => {
         </section>
         
         <IndustriesSection />
-
-        <AnimatedStats/>
         
         <TestimonialCardsSlider />
         
@@ -1318,7 +1321,6 @@ const HomePage = () => {
         <TechShowcase />
 
         <BusinessCategoriesSection />
-
 
         <SlidingImageSection />
 

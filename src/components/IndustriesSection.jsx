@@ -185,7 +185,7 @@ const IndustriesSection = () => {
   };
 
   return (
-    <section className="bg-white py-16 sm:py-20 lg:py-24 font-sans">
+    <section className="bg-white py-10 sm:py-20 lg:py-14 font-sans">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Centered header section */}
         <div className="flex flex-col items-center text-center mb-10 md:mb-12">

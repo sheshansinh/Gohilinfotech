@@ -355,21 +355,7 @@ const AboutUsPage = () => {
 
   const [selectedTeam, setSelectedTeam] = useState("Founders");
 
-  const teamVariants = {
-    hidden: { opacity: 0, y: 50, scale: 0.9 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      scale: 1,
-      transition: { duration: 0.6, ease: "easeOut" },
-    },
-    exit: {
-      opacity: 0,
-      y: -50,
-      scale: 0.9,
-      transition: { duration: 0.4, ease: "easeIn" },
-    },
-  };
+
 
   const socialIcons = {
     twitter: Twitter,
@@ -378,14 +364,7 @@ const AboutUsPage = () => {
     instagram: Instagram,
   };
 
-  const recognitionVariants = {
-    hidden: { opacity: 0, x: -100 },
-    visible: {
-      opacity: 1,
-      x: 0,
-      transition: { duration: 0.8, ease: "easeOut" },
-    },
-  };
+  
 
   return (
     <div className="bg-[#FFFFFF] text-[#2C3E50] font-sans">
@@ -406,7 +385,7 @@ const AboutUsPage = () => {
                 </p>
                 <Link to="/contact">
                   <motion.button
-                    className="bg-[#E67E22] hover:bg-[#2C3E50] text-white px-8 py-3 rounded-full font-medium transition-all duration-300 transform hover:scale-105 hover:shadow-lg"
+                    className="bg-[#73CCD7] hover:bg-[#27B0C4] text-white px-8 py-3 rounded-full font-medium transition-all duration-300 transform hover:scale-105 hover:shadow-lg"
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                   >
@@ -540,7 +519,9 @@ const AboutUsPage = () => {
           </div>
         </section>
 
+
         {/* Our Team Section - Updated with buttons and dynamic content and better responsiveness */}
+        {/* Our Team Section - Updated with better animation */}
         <section className="bg-[#F4F4F4] py-20 px-4 sm:px-6 lg:px-8">
           <AnimatedHeading>
             Meet the people behind Gohil infotech
@@ -565,64 +546,156 @@ const AboutUsPage = () => {
 
           <AnimatedContainer>
             <div className="container mx-auto">
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-                <AnimatePresence>
-                  {teams[selectedTeam].map((member, index) => (
-                    <motion.div
-                      key={member.name}
-                      className="flex flex-col items-center text-center bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 group relative overflow-hidden"
-                      initial="hidden"
-                      animate="visible"
-                      exit="exit"
-                      variants={teamVariants}
-                    >
-                      <motion.img
-                        src={member.image}
-                        alt={member.name}
-                        className="w-40 h-40 rounded-full mb-4 shadow-lg group-hover:scale-105 transition-transform duration-300"
-                      />
-                      <h3 className="text-xl font-semibold text-[#2C3E50]">
-                        {member.name}
-                      </h3>
-                      <p className="text-[#7A7A7A]">{member.title}</p>
-
+              {/* Centered container for team cards */}
+              <div className="flex justify-center">
+                <div
+                  className={`
+          grid gap-8
+          ${teams[selectedTeam].length === 1 ? "grid-cols-1 max-w-md" : ""}
+          ${
+            teams[selectedTeam].length === 2
+              ? "grid-cols-1 md:grid-cols-2 max-w-2xl"
+              : ""
+          }
+          ${
+            teams[selectedTeam].length === 3
+              ? "grid-cols-1 md:grid-cols-2 lg:grid-cols-3 max-w-4xl"
+              : ""
+          }
+          ${
+            teams[selectedTeam].length >= 4
+              ? "grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 max-w-6xl"
+              : ""
+          }
+        `}
+                >
+                  <AnimatePresence mode="wait">
+                    {teams[selectedTeam].map((member, index) => (
                       <motion.div
-                        className="mt-2 flex justify-center gap-4 transition-all duration-300"
-                        initial={{ opacity: 0, y: 0 }}
-                        whileHover={{ opacity: 1, y: 0 }}
+                        key={member.name}
+                        className="flex flex-col items-center text-center bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 group relative overflow-hidden"
+                        initial="hidden"
+                        animate="visible"
+                        exit="exit"
                         variants={{
-                          hidden: { opacity: 0, y: 0 },
+                          hidden: {
+                            opacity: 0,
+                            y: 20,
+                            scale: 0.95,
+                            rotateX: -15,
+                          },
                           visible: {
                             opacity: 1,
                             y: 0,
-                            transition: { duration: 0.4 },
+                            scale: 1,
+                            rotateX: 0,
+                            transition: {
+                              duration: 0.6,
+                              ease: "easeOut",
+                              delay: index * 0.1,
+                            },
+                          },
+                          exit: {
+                            opacity: 0,
+                            y: -20,
+                            scale: 0.95,
+                            rotateX: 15,
+                            transition: {
+                              duration: 0.4,
+                              ease: "easeIn",
+                            },
                           },
                         }}
+                        whileHover={{
+                          y: -8,
+                          transition: { duration: 0.3 },
+                        }}
                       >
-                        {member.social &&
-                          member.social.map((social, socialIndex) => {
-                            const IconComponent = socialIcons[social.platform];
-                            return (
-                              <motion.a
-                                key={socialIndex}
-                                href={social.url}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="text-[#7A7A7A] hover:text-[#E67E22] transition"
-                                whileHover={{ scale: 1.2 }}
-                              >
-                                {IconComponent && <IconComponent size={20} />}
-                              </motion.a>
-                            );
-                          })}
+                        <motion.div
+                          className="relative mb-4"
+                          whileHover={{
+                            rotate: 2,
+                            transition: { duration: 0.4 },
+                          }}
+                        >
+                          <div className="absolute inset-0 bg-gradient-to-br from-[#E67E22]/20 to-[#27B0C4]/20 rounded-full blur-md group-hover:blur-lg transition-all duration-300"></div>
+                          <motion.img
+                            src={member.image}
+                            alt={member.name}
+                            className="w-40 h-40 rounded-full shadow-lg relative z-10 object-cover"
+                            whileHover={{
+                              scale: 1.05,
+                              transition: { duration: 0.3 },
+                            }}
+                          />
+                        </motion.div>
+
+                        <motion.h3
+                          className="text-xl font-semibold text-[#2C3E50] mb-1"
+                          initial={{ opacity: 0 }}
+                          animate={{
+                            opacity: 1,
+                            transition: { delay: index * 0.1 + 0.3 },
+                          }}
+                        >
+                          {member.name}
+                        </motion.h3>
+
+                        <motion.p
+                          className="text-[#7A7A7A] mb-3"
+                          initial={{ opacity: 0 }}
+                          animate={{
+                            opacity: 1,
+                            transition: { delay: index * 0.1 + 0.4 },
+                          }}
+                        >
+                          {member.title}
+                        </motion.p>
+
+                        <motion.div
+                          className="flex justify-center gap-3"
+                          initial={{ opacity: 0, y: 10 }}
+                          animate={{
+                            opacity: 1,
+                            y: 0,
+                            transition: {
+                              delay: index * 0.1 + 0.5,
+                              duration: 0.4,
+                            },
+                          }}
+                        >
+                          {member.social &&
+                            member.social.map((social, socialIndex) => {
+                              const IconComponent =
+                                socialIcons[social.platform];
+                              return (
+                                <motion.a
+                                  key={socialIndex}
+                                  href={social.url}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="text-[#7A7A7A] hover:text-[#E67E22] transition p-2 rounded-full bg-gray-100 hover:bg-gray-200"
+                                  whileHover={{
+                                    scale: 1.2,
+                                    y: -2,
+                                    transition: { duration: 0.2 },
+                                  }}
+                                  whileTap={{ scale: 0.9 }}
+                                >
+                                  {IconComponent && <IconComponent size={18} />}
+                                </motion.a>
+                              );
+                            })}
+                        </motion.div>
                       </motion.div>
-                    </motion.div>
-                  ))}
-                </AnimatePresence>
+                    ))}
+                  </AnimatePresence>
+                </div>
               </div>
             </div>
           </AnimatedContainer>
         </section>
+
 
         {/* Recognitions Section - Updated with a continuous sliding loop */}
         <section className="container mx-auto py-20 px-4 sm:px-6 lg:px-8 text-center overflow-hidden">
@@ -743,9 +816,12 @@ const AboutUsPage = () => {
                         Our Office
                       </h3>
                       <p className="text-[#7A7A7A]">
-                        209, Aamrakunj Business Centre,<br />
-                         Near Panchslok,<br />  
-                        Chandkheda Ahmedabad,<br />
+                        209, Aamrakunj Business Centre,
+                        <br />
+                        Near Panchslok,
+                        <br />
+                        Chandkheda Ahmedabad,
+                        <br />
                         Gujarat, India – 382424
                       </p>
                     </div>

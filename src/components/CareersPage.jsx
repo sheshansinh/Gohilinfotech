@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useState, useEffect } from 'react';
+import { AnimatePresence } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { Briefcase, Building2, Globe, HeartHandshake, User, Award, ArrowRight, ChevronDown, ChevronUp, X } from 'lucide-react';
 
@@ -139,7 +139,7 @@ const CareersPage = () => {
                         <motion.h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-[#2C3E50] leading-tight mb-4" variants={itemVariants}>Plunge into your <br className="hidden lg:inline"/>Vocational Career</motion.h1>
                         <motion.p className="text-lg text-[#7A7A7A] mb-8 max-w-xl mx-auto lg:mx-0" variants={itemVariants}>Transform your skills, innovate the future, and become a part of a lifelong learning journey with us.</motion.p>
                         <motion.div variants={itemVariants} className="flex flex-col sm:flex-row gap-4 items-center justify-center lg:justify-start mb-8">
-                            <motion.button onClick={() => scrollToSection('job-listings')} className="bg-[#73CCD7] text-white font-semibold py-3 px-8 rounded-full shadow-lg hover:bg-[#2C3E50] transition duration-300 flex items-center justify-center" whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                            <motion.button onClick={() => scrollToSection('job-listings')} className="bg-[#73CCD7] text-white font-semibold py-3 px-8 rounded-full shadow-lg hover:bg-[#27B0C4] transition duration-300 flex items-center justify-center" whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                                 Explore Open Positions
                                 <ArrowRight size={18} className="ml-2" />
                             </motion.button>

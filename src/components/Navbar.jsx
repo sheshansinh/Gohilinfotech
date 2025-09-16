@@ -23,13 +23,15 @@ const Navbar = ({ activeColor = "primary" }) => {
 
   const navItems = [
     { name: "Home", path: "/", id: "home" },
-    { name: "About", path: "/aboutus", id: "about" },
+    { name: "About us", path: "/aboutus", id: "about" },
     { name: "Services", path: "/services", id: "services" },
     { name: "Technologies", path: "/technology", id: "technology" },
     { name: "Hire", path: "/HireUsPage", id: "hire" },
     { name: "Careers", path: "/careers", id: "careers" },
     { name: "Media", path: "/blog", id: "blog" },
-    { name: "Our work", path: "/PortfolioPage", id: "our-work" },
+    { name: "Our work", path: "/OurWorkPage", id: "our-work" },
+ 
+
   ];
 
   const isActiveLink = (path) => location.pathname === path;

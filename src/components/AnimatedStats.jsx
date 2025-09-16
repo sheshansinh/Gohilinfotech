@@ -8,11 +8,13 @@ const AnimatedStats = () => {
     const stats = [
         {
             icon: Users,
-            imageUrl: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80", // Example image URL
+            imageUrl: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
             endValue: 500,
             label: "Projects Delivered",
             suffix: "+",
-            useImage: false, // Set to true to use image instead of icon
+            useImage: false,
+            color: "text-blue-500",
+            bgColor: "bg-blue-50"
         },
         {
             icon: Award,
@@ -20,7 +22,9 @@ const AnimatedStats = () => {
             endValue: 98,
             label: "Client Satisfaction",
             suffix: "%",
-            useImage: true, // This one will use the image
+            useImage: true,
+            color: "text-amber-500",
+            bgColor: "bg-amber-50"
         },
         {
             icon: Clock,
@@ -29,6 +33,8 @@ const AnimatedStats = () => {
             label: "Support Available",
             suffix: "/7",
             useImage: false,
+            color: "text-emerald-500",
+            bgColor: "bg-emerald-50"
         },
         {
             icon: Globe,
@@ -36,13 +42,15 @@ const AnimatedStats = () => {
             endValue: 50,
             label: "Countries Served",
             suffix: "+",
-            useImage: true, // This one will use the image
+            useImage: true,
+            color: "text-purple-500",
+            bgColor: "bg-purple-50"
         },
     ];
 
     const [ref, inView] = useInView({
         triggerOnce: true,
-        threshold: 0.5,
+        threshold: 0.3,
     });
 
     const AnimatedNumber = ({ endValue, suffix = '' }) => {
@@ -51,13 +59,13 @@ const AnimatedStats = () => {
 
         useEffect(() => {
             if (inView) {
-                const duration = 2000; // Animation duration in milliseconds
+                const duration = 2000;
                 const startTime = performance.now();
 
                 const animate = (currentTime) => {
                     const elapsedTime = currentTime - startTime;
                     const progress = Math.min(elapsedTime / duration, 1);
-                    const easedProgress = 1 - Math.pow(1 - progress, 3); // Cubic easing
+                    const easedProgress = 1 - Math.pow(1 - progress, 3);
                     const currentValue = Math.floor(easedProgress * endValue);
                     
                     setCount(currentValue);
@@ -77,7 +85,11 @@ const AnimatedStats = () => {
             };
         }, [inView, endValue]);
 
-        return <span>{count}{suffix}</span>;
+        return (
+            <span className="font-bold tracking-tight">
+                {count}{suffix}
+            </span>
+        );
     };
 
     const containerVariants = {
@@ -85,18 +97,18 @@ const AnimatedStats = () => {
         visible: {
             opacity: 1,
             transition: {
-                staggerChildren: 0.2,
+                staggerChildren: 0.15,
             },
         },
     };
 
     const itemVariants = {
-        hidden: { opacity: 0, y: 50 },
+        hidden: { opacity: 0, y: 30 },
         visible: {
             opacity: 1,
             y: 0,
             transition: {
-                duration: 0.6,
+                duration: 0.5,
                 ease: "easeOut",
             },
         },
@@ -104,12 +116,12 @@ const AnimatedStats = () => {
 
     return (
         <section 
-            className="py-20 bg-gray-100"
+            className="py-16 md:py-20 bg-gradient-to-br from-gray-50 to-gray-100"
             ref={ref}
         >
             <div className="container mx-auto px-4">
                 <motion.div
-                    className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 text-center"
+                    className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 text-center"
                     variants={containerVariants}
                     initial="hidden"
                     animate={inView ? "visible" : "hidden"}
@@ -119,31 +131,33 @@ const AnimatedStats = () => {
                         return (
                             <motion.div
                                 key={index}
-                                className="flex flex-col items-center"
+                                className="flex flex-col items-center p-4 md:p-6 rounded-xl bg-white shadow-sm hover:shadow-md transition-all duration-300"
                                 variants={itemVariants}
+                                whileHover={{ y: -5 }}
                             >
-                                {/* Display either icon or image based on useImage flag */}
-                                {stat.useImage ? (
-                                    <div className="w-16 h-16 mb-4 rounded-full overflow-hidden shadow-lg">
-                                        <img 
-                                            src={stat.imageUrl} 
-                                            alt={stat.label}
-                                            className="w-full h-full object-cover"
+                                <div className={`p-3 mb-3 md:mb-4 rounded-full ${stat.bgColor}`}>
+                                    {stat.useImage ? (
+                                        <div className="w-10 h-10 md:w-12 md:h-12 rounded-full overflow-hidden">
+                                            <img 
+                                                src={stat.imageUrl} 
+                                                alt={stat.label}
+                                                className="w-full h-full object-cover"
+                                            />
+                                        </div>
+                                    ) : (
+                                        <IconComponent 
+                                            className={`w-6 h-6 md:w-8 md:h-8 ${stat.color}`} 
                                         />
-                                    </div>
-                                ) : (
-                                    <IconComponent 
-                                        className="w-12 h-12 mb-4 text-teal-500" 
-                                    />
-                                )}
+                                    )}
+                                </div>
                                 
-                                <div className="text-5xl font-extrabold text-gray-800">
+                                <div className="text-2xl md:text-4xl font-extrabold text-gray-800 mb-1">
                                     <AnimatedNumber 
                                         endValue={stat.endValue} 
                                         suffix={stat.suffix} 
                                     />
                                 </div>
-                                <p className="mt-2 text-lg text-gray-600 font-medium">
+                                <p className="text-xs md:text-sm text-gray-600 font-medium leading-tight">
                                     {stat.label}
                                 </p>
                             </motion.div>

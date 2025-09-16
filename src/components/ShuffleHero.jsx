@@ -5,27 +5,27 @@ import { Link } from "react-router-dom";
 // The main hero component with content and the shuffling grid
 const ShuffleHero = () => {
   return (
-    <section className="w-full px-8 py-12 pt-20 grid grid-cols-1 md:grid-cols-2 items-center gap-8 max-w-6xl mx-auto mt-20">
+    <section className="w-full px-4 md:px-8 py-8 md:py-12 pt-16 md:pt-20 grid grid-cols-1 md:grid-cols-2 items-center gap-6 md:gap-8 max-w-6xl mx-auto mt-10 md:mt-20">
       <div>
-        <span className="block mb-4 text-xs md:text-sm text-[#73CCD7] font-semibold uppercase">
+        <span className="block mb-2 md:mb-4 text-xs md:text-sm text-[#73CCD7] font-semibold uppercase">
           Your Digital Transformation Partner
         </span>
-        <h3 className="text-4xl md:text-6xl font-extrabold text-[#2C3E50] leading-tight">
+        <h3 className="text-2xl md:text-4xl lg:text-6xl font-extrabold text-[#2C3E50] leading-snug md:leading-tight">
           Innovative Solutions for a Digital World
         </h3>
-        <p className="text-base md:text-lg text-[#7A7A7A] my-4 md:my-6">
+        <p className="text-sm md:text-base lg:text-lg text-[#7A7A7A] my-3 md:my-4 lg:my-6">
           We combine cutting-edge technology with strategic expertise to help
           businesses of all sizes thrive in the digital age. Our solutions are
           designed to drive growth, efficiency, and lasting innovation.
         </p>
-        <div className="flex flex-wrap gap-4">
+        <div className="flex flex-wrap gap-2 md:gap-4">
           <Link to="/services">
-            <button className="bg-[#73CCD7] hover:bg-[#27B0C4] text-white px-8 py-3 rounded-full font-medium transition-all duration-300 transform hover:scale-105 hover:shadow-lg">
+            <button className="bg-[#73CCD7] hover:bg-[#27B0C4] text-white px-4 py-2 md:px-6 md:py-2.5 lg:px-8 lg:py-3 text-sm md:text-base rounded-full font-medium transition-all duration-300 transform hover:scale-105 hover:shadow-lg">
               Our Services
             </button>
           </Link>
           <Link to="contact">
-            <button className="border border-[#E67E22] text-[#E67E22] hover:bg-[#E67E22] hover:text-white px-8 py-3 rounded-full font-medium transition-all duration-300 transform hover:scale-105">
+            <button className="border border-[#E67E22] text-[#E67E22] hover:bg-[#E67E22] hover:text-white px-4 py-2 md:px-6 md:py-2.5 lg:px-8 lg:py-3 text-sm md:text-base rounded-full font-medium transition-all duration-300 transform hover:scale-105">
               Contact us
             </button>
           </Link>
@@ -153,7 +153,7 @@ const ShuffleGrid = () => {
   };
 
   return (
-    <div className="grid grid-cols-4 grid-rows-4 h-[450px] gap-1">
+    <div className="grid grid-cols-4 grid-rows-4 h-[250px] sm:h-[300px] md:h-[350px] lg:h-[450px] gap-1">
       {squares.map((sq) => sq)}
     </div>
   );
