@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { Briefcase, Building2, Globe, HeartHandshake, User, Award, ArrowRight, ChevronDown, ChevronUp, X } from 'lucide-react';
 
